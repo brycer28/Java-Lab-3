@@ -5,16 +5,16 @@ import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-// reads a .csv file of data and populates a PlayerStats object
 public class FileReader {
-
-    public static ArrayList<PlayerStats> readPlayerStat(String filename) throws IOException {
+    // reads a .csv file of data and populates a PlayerStats record
+    public static ArrayList<PlayerStats> readPlayerStats(String filename) throws IOException {
         String contents = Files.readString(Path.of(filename), StandardCharsets.UTF_8);
         Scanner scanner = new Scanner(contents);
         ArrayList<PlayerStats> playerStats = new ArrayList<>();
         scanner.nextLine();
         scanner.useDelimiter(",");
 
+        // read each line of the .csv conents and fill in each field of PlayerStats
         while (scanner.hasNext()) {
             String line = scanner.nextLine().trim();
             if (line.isEmpty()) {continue;}
@@ -51,7 +51,7 @@ public class FileReader {
                 playerStats.add(datum);
             }
             catch (ArrayIndexOutOfBoundsException e) {
-                continue;
+                System.out.println(e.getMessage());
             }
         }
         scanner.close();

@@ -4,13 +4,14 @@ import java.util.ArrayList;
 // reads data creates frame for various panels
 public class DataVisTool {
     public static void main(String[] args) throws IOException {
-        ArrayList<PlayerStats> data = FileReader.readPlayerStat("UARK_Basketball_Stats_2019.csv");
+        ArrayList<PlayerStats> data = FileReader.readPlayerStats("UARK_Basketball_Stats_2019.csv");
 
         for (PlayerStats playerStats : data) {
             printPlayerStats(playerStats);
         }
     }
 
+    // print out each stat field for each player
     public static void printPlayerStats(PlayerStats data) {
         System.out.println("2019 Basketball Season Statistics");
         System.out.println("Rank:\t" + data.rank());
