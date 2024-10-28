@@ -1,8 +1,10 @@
+package DataHandling;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 // reads data creates frame for various panels
-public class DataVisTool {
+public class DataTester {
     public static void main(String[] args) throws IOException {
         ArrayList<PlayerStats> data = FileReader.readPlayerStats("UARK_Basketball_Stats_2019.csv");
 

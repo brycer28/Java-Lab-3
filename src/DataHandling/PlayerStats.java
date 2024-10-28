@@ -1,3 +1,5 @@
+package DataHandling;
+
 // a record to hold stats for each individual player
 public record PlayerStats(
         byte rank,      // player rank

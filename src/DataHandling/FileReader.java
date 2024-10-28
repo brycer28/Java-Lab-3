@@ -1,3 +1,5 @@
+package DataHandling;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -6,7 +8,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class FileReader {
-    // reads a .csv file of data and populates a PlayerStats record
+    // reads a .csv file of data and populates a DataHandling.PlayerStats record
     public static ArrayList<PlayerStats> readPlayerStats(String filename) throws IOException {
         String contents = Files.readString(Path.of(filename), StandardCharsets.UTF_8);
         Scanner scanner = new Scanner(contents);
@@ -14,7 +16,7 @@ public class FileReader {
         scanner.nextLine();
         scanner.useDelimiter(",");
 
-        // read each line of the .csv conents and fill in each field of PlayerStats
+        // read each line of the .csv conents and fill in each field of DataHandling.PlayerStats
         while (scanner.hasNext()) {
             String line = scanner.nextLine().trim();
             if (line.isEmpty()) {continue;}
