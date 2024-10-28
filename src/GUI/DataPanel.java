@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
+// panel to display 4 data visualizations
 public class DataPanel extends JPanel {
     private JPanel containerPanel = new JPanel();
     private JPanel tablePanel;
@@ -15,17 +16,17 @@ public class DataPanel extends JPanel {
     private JPanel chartPanel;
     private ArrayList<PlayerStats> data;
 
+    // create a data panel and update display
     public DataPanel() {
-        String defaultPath = "C::\\Users\\User\\INTELLIJ\\Lab 3\\Data\\UARK_Basketball_Stats_2018.csv";
-
         //set up frame
-        setPreferredSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(Constants.WIDTH, Constants.HEIGHT));
         setLayout(new GridLayout(2,2));
+
         //set up default data
-        updateDisplay(2019);
+        updateDisplay(Constants.YEARS[0]);
     }
 
-    // takes in a year (from
+    // takes in a year (from 2023-2018) and updates data panels accordingly
     public void updateDisplay(int year) {
         this.removeAll();
 
@@ -47,15 +48,10 @@ public class DataPanel extends JPanel {
             add(detailsPanel);
             add(chartPanel);
 
-
             repaint();
             revalidate();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
-
 }

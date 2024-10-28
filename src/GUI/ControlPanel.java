@@ -4,31 +4,32 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
+//panel to hold controls for interacting with data set
 public class ControlPanel extends JPanel {
     public JComboBox yearSelector;
     public JCheckBox filter1;
     public JCheckBox filter2;
     public JCheckBox filter3;
-    private String[] years = {
-            "2023", "2022", "2021", "2020", "2019", "2018"
-    };
+    public final String[] YEARS = Arrays.stream(Constants.YEARS)
+            .mapToObj(String::valueOf).toArray(String[]::new);
 
     // create a control panel to navigate the data
     // takes in a mainPanel object for action listeners to call updateDisplay
     public ControlPanel(DataPanel dataPanel) {
-        setPreferredSize(new Dimension(800, 100));
+        setPreferredSize(new Dimension(Constants.WIDTH, Constants.CTRL_PNL_HEIGHT));
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         //create yearSelector and three filters
-        yearSelector = new JComboBox<>(years);
+        yearSelector = new JComboBox<>(YEARS);
         yearSelector.setSelectedIndex(0);
         yearSelector.setSize(new Dimension(40, 20));
         filter1 = new JCheckBox("Filter 1");
         filter2 = new JCheckBox("Filter 2");
         filter3 = new JCheckBox("Filter 3");
 
-        //add action listeners to components
+        //add action listeners to year selector
         yearSelector.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {

@@ -4,10 +4,7 @@ import DataHandling.PlayerStats;
 
 import javax.swing.*;
 import java.awt.*;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 // calculate leaders in various statistics categories
 public class StatsPanel extends JPanel {
@@ -15,8 +12,8 @@ public class StatsPanel extends JPanel {
     // show team averages for major stats
     public StatsPanel(ArrayList<PlayerStats> data) {
         setBackground(Color.LIGHT_GRAY);
-        setPreferredSize(new Dimension(400, 300));
-        setLayout(new GridLayout(7, 1));
+        setPreferredSize(new Dimension(Constants.SUB_PNL_WIDTH, Constants.SUB_PNL_HEIGHT));
+        setLayout(new GridLayout(Constants.COLUMN_NAMES.length, 1));
 
         //for each stat showed on the table panel, use streams to calculate the team average
         double avgPts = data.stream().mapToDouble(PlayerStats::PTS).average().orElse(0);

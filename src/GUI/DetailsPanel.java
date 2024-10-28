@@ -4,7 +4,6 @@ import DataHandling.PlayerStats;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 // show a detailed list of all stats for a specific player
 public class DetailsPanel extends JPanel {
@@ -12,7 +11,7 @@ public class DetailsPanel extends JPanel {
 
     public DetailsPanel(PlayerStats playerStats) {
         setBackground(Color.LIGHT_GRAY);
-        setPreferredSize(new Dimension(400, 300));
+        setPreferredSize(new Dimension(Constants.SUB_PNL_WIDTH, Constants.SUB_PNL_HEIGHT));
         setLayout(new GridLayout(NUM_ROWS, 2));
 
         //add text to panel

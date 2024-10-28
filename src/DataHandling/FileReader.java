@@ -16,7 +16,7 @@ public class FileReader {
         scanner.nextLine();
         scanner.useDelimiter(",");
 
-        // read each line of the .csv conents and fill in each field of DataHandling.PlayerStats
+        // read each line of the .csv contents and fill in each field of DataHandling.PlayerStats
         while (scanner.hasNext()) {
             String line = scanner.nextLine().trim();
             if (line.isEmpty()) {continue;}
