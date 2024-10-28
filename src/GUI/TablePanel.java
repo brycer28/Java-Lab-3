@@ -2,6 +2,7 @@ package GUI;
 
 import DataHandling.PlayerStats;
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 public class TablePanel extends JPanel {
     private JTable table;
     private JScrollPane scrollPane;
+    private DetailsPanel detailsPanel; // to update panel based on selected row
 
     public TablePanel(ArrayList<PlayerStats> data) {
         setBackground(Color.LIGHT_GRAY);
@@ -33,20 +35,41 @@ public class TablePanel extends JPanel {
         //add rows to table
         for (PlayerStats player : data) {
             Object[] rowData = getRowData(player);
-            tableModel.addRow(rowData);
+            if (rowData[0] != "School Totals") {
+                tableModel.addRow(rowData);
+            }
         }
 
         //add scroll pane
         scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(Constants.SUB_PNL_WIDTH, Constants.SUB_PNL_HEIGHT));
         add(scrollPane);
+
+        //add action listener to update detailsPanel
+        table.getSelectionModel().addListSelectionListener(e -> {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = table.getSelectedRow();
+                    Object parent = this.getParent();
+
+                    if (selectedRow != -1) {
+                        String playerName = table.getValueAt(selectedRow, 0).toString();
+                        System.out.println(playerName);
+
+                    }
+                }
+        });
     }
 
     public Object[] getRowData(PlayerStats player) {
         Object[] rowData = new Object[Constants.COLUMN_NAMES.length];
-        for (int i = 0; i < Constants.COLUMN_NAMES.length; i++) {
-            rowData[1] = Constants.COLUMN_NAMES[i];
-        }
+        rowData[0] = player.name();
+        rowData[1] = player.GP();
+        rowData[2] = player.PTS();
+        rowData[3] = player.AST();
+        rowData[4] = player.TRB();
+        rowData[5] = player.STL();
+        rowData[6] = player.BLK();
+        rowData[7] = player.TOV();
         return rowData;
     }
 }

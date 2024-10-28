@@ -19,7 +19,7 @@ public class ControlPanel extends JPanel {
     // takes in a mainPanel object for action listeners to call updateDisplay
     public ControlPanel(DataPanel dataPanel) {
         setPreferredSize(new Dimension(Constants.WIDTH, Constants.CTRL_PNL_HEIGHT));
-        setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        setLayout(new FlowLayout(FlowLayout.CENTER, 100, 35 ));
 
         //create yearSelector and three filters
         yearSelector = new JComboBox<>(YEARS);
@@ -35,7 +35,7 @@ public class ControlPanel extends JPanel {
                 try {
                     String strYear = (String) yearSelector.getSelectedItem();
                     int year = Integer.parseInt(strYear);
-                    dataPanel.updateDisplay(year);
+                    dataPanel.updateDisplay(year, "");
                 } catch (NullPointerException npe) {
                     System.out.println(npe);
                     yearSelector.setSelectedIndex(0);

@@ -2,6 +2,7 @@ package GUI;
 
 import DataHandling.FileReader;
 import DataHandling.PlayerStats;
+import GUI.TablePanel;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -9,12 +10,13 @@ import javax.swing.*;
 
 // panel to display 4 data visualizations
 public class DataPanel extends JPanel {
-    private JPanel containerPanel = new JPanel();
+    private ArrayList<PlayerStats> data;
+    private PlayerStats detailData;
     private JPanel tablePanel;
     private JPanel detailsPanel;
     private JPanel statsPanel;
     private JPanel chartPanel;
-    private ArrayList<PlayerStats> data;
+
 
     // create a data panel and update display
     public DataPanel() {
@@ -23,11 +25,15 @@ public class DataPanel extends JPanel {
         setLayout(new GridLayout(2,2));
 
         //set up default data
-        updateDisplay(Constants.YEARS[0]);
+        updateDisplay(Constants.YEARS[0], "");
+    }
+
+    public interface DisplayUpdater {
+        void updateDisplay(int year, String playerName);
     }
 
     // takes in a year (from 2023-2018) and updates data panels accordingly
-    public void updateDisplay(int year) {
+    public void updateDisplay(int year, String playerName) {
         this.removeAll();
 
         String csvPath = "C:\\Users\\User\\INTELLIJ\\Lab 3\\Data\\UARK_Basketball_Stats_" + year + ".csv";
@@ -36,11 +42,29 @@ public class DataPanel extends JPanel {
         try {
             data = FileReader.readPlayerStats(csvPath);
 
+            //if no playerName provided, default to first player
+            //NOTE: this is because the controlPanel doesn't have access to selecting player, but table listener
+            //should be able to update using the same method.
+            if (playerName == "") {
+                playerName = data.get(0).name();
+            }
+
+            //get playerStats based on name
+            for (PlayerStats playerStats : data) {
+                if (playerStats.name().equals(playerName)){
+                    detailData = playerStats;
+                } else {
+                    detailData = data.get(0);
+                }
+            }
+
             //create each sub-panel
             tablePanel = new TablePanel(data);
-            detailsPanel = new DetailsPanel(data.get(1));
+            detailsPanel = new DetailsPanel(detailData);
             statsPanel = new StatsPanel(data);
             chartPanel = new ChartPanel();
+
+            //create details panel based on table contents
 
             //add panels to this
             add(tablePanel);

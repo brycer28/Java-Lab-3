@@ -19,15 +19,16 @@ public class DetailsPanel extends JPanel {
         add(new JLabel(playerStats.name()));
 
         add(new JLabel("Field Goals (Made / Att. / %):"));
-        add(new JLabel(playerStats.FG() + " " + playerStats.FGA() + " " + playerStats.FGP()));
+        add(new JLabel(playerStats.FG() + " / " + playerStats.FGA() + " / " + playerStats.FGP()));
 
         add(new JLabel("Field Goals (2-pt): "));
-        add(new JLabel(playerStats.FG2() + " " + playerStats.FG2A() + " " + playerStats.FG2P()));
+        add(new JLabel(playerStats.FG2() + " / " + playerStats.FG2A() + " / " + playerStats.FG2P()));
 
         add(new JLabel("Field Goals (3-pt): "));
-        add(new JLabel(playerStats.FG3() + " " + playerStats.FG3A() + " " + playerStats.FG3P()));
+        add(new JLabel(playerStats.FG3() + " / " + playerStats.FG3A() + " / " + playerStats.FG3P()));
 
         add(new JLabel("Free Throws: "));
-        add(new JLabel(playerStats.FT() + " " + playerStats.FTA() + " " + playerStats.FTP()));
+        add(new JLabel(playerStats.FT() + " / " + playerStats.FTA() + " / " + playerStats.FTP()));
+
     }
 }
