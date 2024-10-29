@@ -7,16 +7,15 @@ import java.awt.*;
 
 // show a detailed list of all stats for a specific player
 public class DetailsPanel extends JPanel {
-    final int NUM_ROWS = 5;
-
-    public DetailsPanel(PlayerStats playerStats) {
+    // show detailed stats for specific player
+    public DetailsPanel(PlayerStats playerStats, int year) {
         setBackground(Color.LIGHT_GRAY);
         setPreferredSize(new Dimension(Constants.SUB_PNL_WIDTH, Constants.SUB_PNL_HEIGHT));
-        setLayout(new GridLayout(NUM_ROWS, 2));
+        setLayout(new GridLayout(Constants.DETAILS_NUM_ROWS, 2));
 
-        //add text to panel
+        //add text and data to panel
         add(new JLabel("Summary: "));
-        add(new JLabel(playerStats.name()));
+        add(new JLabel(playerStats.name() + " (" + year + ")"));
 
         add(new JLabel("Field Goals (Made / Att. / %):"));
         add(new JLabel(playerStats.FG() + " / " + playerStats.FGA() + " / " + playerStats.FGP()));
@@ -29,6 +28,5 @@ public class DetailsPanel extends JPanel {
 
         add(new JLabel("Free Throws: "));
         add(new JLabel(playerStats.FT() + " / " + playerStats.FTA() + " / " + playerStats.FTP()));
-
     }
 }

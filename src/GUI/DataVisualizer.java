@@ -30,6 +30,7 @@ class Constants {
     public static final int SUB_PNL_HEIGHT = 300;
     public static final int FRAME_WIDTH = WIDTH + 100;
     public static final int FRAME_HEIGHT = HEIGHT + 100;
+    public static final int DETAILS_NUM_ROWS = 5;
     public static final int[] YEARS = {
             2023, 2022, 2021, 2020, 2019, 2018
     };

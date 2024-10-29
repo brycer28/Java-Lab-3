@@ -3,7 +3,6 @@ package GUI;
 import DataHandling.PlayerStats;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -11,7 +10,6 @@ import java.util.ArrayList;
 public class TablePanel extends JPanel {
     private static JTable table;
     private JScrollPane scrollPane;
-    public ContainerPanel containerPanel;
 
     public TablePanel(ArrayList<PlayerStats> data, ContainerPanel containerPanel) {
         setBackground(Color.LIGHT_GRAY);
@@ -38,7 +36,7 @@ public class TablePanel extends JPanel {
             }
         }
 
-        //add scroll pane
+        //add table to scroll pane
         scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(Constants.SUB_PNL_WIDTH, Constants.SUB_PNL_HEIGHT));
         add(scrollPane);
@@ -51,6 +49,7 @@ public class TablePanel extends JPanel {
         });
     }
 
+    //return an object containing a subset of data to display on table
     public Object[] getRowData(PlayerStats player) {
         Object[] rowData = new Object[Constants.COLUMN_NAMES.length];
         rowData[0] = player.name();
@@ -64,10 +63,12 @@ public class TablePanel extends JPanel {
         return rowData;
     }
 
+    // return the table
     public static JTable getTable() {
         return table;
     }
 
+    // return the selected row to display correct detailsPanel
     public static int getSelectedRow() {
         return table.getSelectedRow();
     }

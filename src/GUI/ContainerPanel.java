@@ -6,20 +6,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+// panel to hold dataPanel and controlPanel
 public class ContainerPanel extends JPanel {
     private DataPanel dataPanel;
     private ControlPanel controlPanel;
     private ArrayList<PlayerStats> data;
 
+    // panel to hold dataPanel and controlPanel
     public ContainerPanel() {
         setPreferredSize(new Dimension(Constants.WIDTH, Constants.HEIGHT));
         setLayout(new BorderLayout());
 
-        //set up default data (dataPanel will default second param in the constructor)
+        //set up default data (dataPanel will set default details in the constructor)
         dataPanel = new DataPanel(Constants.YEARS[0], null, this);
         controlPanel = new ControlPanel(dataPanel);
 
-        dataPanel.setContainerPanel(this); // this lets them call updateDisplay
+        dataPanel.setContainerPanel(this);// this lets them call updateDisplay
         controlPanel.setContainerPanel(this);
 
         //add subpanels
@@ -27,6 +29,8 @@ public class ContainerPanel extends JPanel {
         add(controlPanel, BorderLayout.SOUTH);
     }
 
+    // method to update display
+    // gets state of controlPanel's JComboBox and tablePanel's selected row to redraw table and details
     public void updateDisplay() {
         data = dataPanel.getData();
 
@@ -48,13 +52,15 @@ public class ContainerPanel extends JPanel {
         // remove all components and redraw according to new parameters
         this.removeAll();
 
+        // create new components
         dataPanel = new DataPanel(year, detailStats, this);
         controlPanel = new ControlPanel(dataPanel);
 
-          // resets the container panel each time display is refreshed
-        controlPanel.setContainerPanel(this); // otherwise filter could only be changed once, then 'this' is irrelevant
+        // resets the container panel each time display is refreshed
+        // otherwise filter could only be changed once, then 'this' is irrelevant
+        controlPanel.setContainerPanel(this);
 
-
+        // add new components and refresh display
         add(dataPanel, BorderLayout.NORTH);
         add(controlPanel, BorderLayout.SOUTH);
 

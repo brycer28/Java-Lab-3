@@ -22,9 +22,6 @@ public class DataPanel extends JPanel {
         setPreferredSize(new Dimension(Constants.WIDTH, Constants.HEIGHT));
         setLayout(new GridLayout(2,2));
 
-        if (containerPanel == null) {
-            System.out.print("WHAT THE FUCK");}
-
         //set up default data
         try {
             data = FileReader.readPlayerStats((Constants.CSV_HEADER + year + ".csv"));
@@ -36,8 +33,8 @@ public class DataPanel extends JPanel {
 
             //create each sub-panel
             tablePanel = new TablePanel(data, containerPanel);
-            detailsPanel = new DetailsPanel(detailData);
-            statsPanel = new StatsPanel(data);
+            detailsPanel = new DetailsPanel(detailData, year);
+            statsPanel = new StatsPanel(data, year);
             chartPanel = new ChartPanel();
 
             //add panels to this
@@ -46,6 +43,7 @@ public class DataPanel extends JPanel {
             add(detailsPanel);
             add(chartPanel);
 
+            //refresh display
             repaint();
             revalidate();
         } catch (Exception e) {
@@ -53,10 +51,12 @@ public class DataPanel extends JPanel {
         }
     }
 
+    // set an objects containerPanel to pass down updateDisplay method to table and control panels
     public void setContainerPanel(ContainerPanel containerPanel) {
         this.containerPanel = containerPanel;
     }
 
+    // get the data set being used for this instance of dataPanel
     public ArrayList<PlayerStats> getData() {
         return data;
     }

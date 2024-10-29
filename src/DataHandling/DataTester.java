@@ -13,7 +13,7 @@ public class DataTester {
         }
     }
 
-    // print out each stat field for each player
+    // print out each stat field for each player for testing
     public static void printPlayerStats(PlayerStats data) {
         System.out.println("2019 Basketball Season Statistics");
         System.out.println("Rank:\t" + data.rank());

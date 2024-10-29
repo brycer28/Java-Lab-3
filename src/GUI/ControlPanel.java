@@ -20,7 +20,7 @@ public class ControlPanel extends JPanel {
     // takes in a mainPanel object for action listeners to call updateDisplay
     public ControlPanel(DataPanel dataPanel) {
         setPreferredSize(new Dimension(Constants.WIDTH, Constants.CTRL_PNL_HEIGHT));
-        setLayout(new FlowLayout(FlowLayout.CENTER, 100, 35 ));
+        setLayout(new FlowLayout(FlowLayout.CENTER, 100, 40 ));
 
         //create yearSelector and three filters
         yearSelector = new JComboBox<>(YEARS);
@@ -29,31 +29,31 @@ public class ControlPanel extends JPanel {
         filter2 = new JCheckBox("Filter 2");
         filter3 = new JCheckBox("Filter 3");
 
-        //add action listeners to year selector
-        yearSelector.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    containerPanel.updateDisplay();
-                } catch (NullPointerException npe) {
-                    System.out.println(npe);
-                    yearSelector.setSelectedIndex(0);
-                    throw npe;
-                }
-            }
-        });
-
         //add components to controlPanel
         add(yearSelector);
         add(filter1);
         add(filter2);
         add(filter3);
+
+        //add action listener to year selector to updateDisplay
+        yearSelector.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    containerPanel.updateDisplay();
+                } catch (NullPointerException npe) {
+                    throw npe;
+                }
+            }
+        });
     }
 
+    // return the selected year
     public int getSelectedYear() {
         String strYear = yearSelector.getSelectedItem().toString();
         return (int) Integer.parseInt(strYear);
     }
 
+    // set this objects containerPanel to pass down updateDisplay method
     public void setContainerPanel(ContainerPanel containerPanel) {
         this.containerPanel = containerPanel;
     }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class StatsPanel extends JPanel {
 
     // show team averages for major stats
-    public StatsPanel(ArrayList<PlayerStats> data) {
+    public StatsPanel(ArrayList<PlayerStats> data, int year) {
         setBackground(Color.LIGHT_GRAY);
         setPreferredSize(new Dimension(Constants.SUB_PNL_WIDTH, Constants.SUB_PNL_HEIGHT));
         setLayout(new GridLayout(Constants.COLUMN_NAMES.length, 1));
@@ -23,8 +23,8 @@ public class StatsPanel extends JPanel {
         double avgBlk = data.stream().mapToDouble(PlayerStats::BLK).average().orElse(0);
         double avgTov = data.stream().mapToDouble(PlayerStats::TOV).average().orElse(0);
 
-        //add text to panel
-        add(new JLabel("Team Averages: "));
+        //add text to panels
+        add(new JLabel("Team Averages for " + year + "-" + (year+1) + " Season: "));
         add(new JLabel(" "));
         add(new JLabel("Avg PTS: " + formatTwoDecimals(avgPts)));
         add(new JLabel("Avg Reb: " + formatTwoDecimals(avgReb)));
@@ -34,6 +34,8 @@ public class StatsPanel extends JPanel {
         add(new JLabel("Avg Tov: " + formatTwoDecimals(avgTov)));
     }
 
+    // formats averages to 2 decimal points
+    // i have no idea why java doesn't have an easier way to do this like setPrecision() in C++
     public static double formatTwoDecimals(double value) {
         return Math.round(value * 100.0) / 100.0;
     }
