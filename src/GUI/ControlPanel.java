@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 //panel to hold controls for interacting with data set
 public class ControlPanel extends JPanel {
+    public ContainerPanel containerPanel;
     public JComboBox yearSelector;
     public JCheckBox filter1;
     public JCheckBox filter2;
@@ -23,7 +24,6 @@ public class ControlPanel extends JPanel {
 
         //create yearSelector and three filters
         yearSelector = new JComboBox<>(YEARS);
-        yearSelector.setSelectedIndex(0);
         yearSelector.setSize(new Dimension(40, 20));
         filter1 = new JCheckBox("Filter 1");
         filter2 = new JCheckBox("Filter 2");
@@ -33,9 +33,7 @@ public class ControlPanel extends JPanel {
         yearSelector.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String strYear = (String) yearSelector.getSelectedItem();
-                    int year = Integer.parseInt(strYear);
-                    dataPanel.updateDisplay(year, "");
+                    containerPanel.updateDisplay();
                 } catch (NullPointerException npe) {
                     System.out.println(npe);
                     yearSelector.setSelectedIndex(0);
@@ -49,6 +47,14 @@ public class ControlPanel extends JPanel {
         add(filter1);
         add(filter2);
         add(filter3);
+    }
 
+    public int getSelectedYear() {
+        String strYear = yearSelector.getSelectedItem().toString();
+        return (int) Integer.parseInt(strYear);
+    }
+
+    public void setContainerPanel(ContainerPanel containerPanel) {
+        this.containerPanel = containerPanel;
     }
 }

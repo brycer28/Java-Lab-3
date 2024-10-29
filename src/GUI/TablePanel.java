@@ -2,7 +2,6 @@ package GUI;
 
 import DataHandling.PlayerStats;
 import javax.swing.*;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
@@ -10,11 +9,11 @@ import java.util.ArrayList;
 
 // shows a table of major stats for all players
 public class TablePanel extends JPanel {
-    private JTable table;
+    private static JTable table;
     private JScrollPane scrollPane;
-    private DetailsPanel detailsPanel; // to update panel based on selected row
+    public ContainerPanel containerPanel;
 
-    public TablePanel(ArrayList<PlayerStats> data) {
+    public TablePanel(ArrayList<PlayerStats> data, ContainerPanel containerPanel) {
         setBackground(Color.LIGHT_GRAY);
         setPreferredSize(new Dimension(Constants.SUB_PNL_WIDTH , Constants.SUB_PNL_HEIGHT));
 
@@ -22,7 +21,6 @@ public class TablePanel extends JPanel {
         DefaultTableModel tableModel = new DefaultTableModel(Constants.COLUMN_NAMES, 0) {};
         table = new JTable(tableModel);
         tableModel.setColumnIdentifiers(Constants.COLUMN_NAMES);
-        TableColumnModel columnModel = table.getColumnModel();
 
         //set column sizes
         final int nameWidth = (int)(table.getPreferredSize().getWidth() * .15);
@@ -45,18 +43,11 @@ public class TablePanel extends JPanel {
         scrollPane.setPreferredSize(new Dimension(Constants.SUB_PNL_WIDTH, Constants.SUB_PNL_HEIGHT));
         add(scrollPane);
 
-        //add action listener to update detailsPanel
+        //add action listener to update display
         table.getSelectionModel().addListSelectionListener(e -> {
-                if (!e.getValueIsAdjusting()) {
-                    int selectedRow = table.getSelectedRow();
-                    Object parent = this.getParent();
-
-                    if (selectedRow != -1) {
-                        String playerName = table.getValueAt(selectedRow, 0).toString();
-                        System.out.println(playerName);
-
-                    }
-                }
+            if (!e.getValueIsAdjusting()) {
+                containerPanel.updateDisplay();
+            }
         });
     }
 
@@ -71,5 +62,13 @@ public class TablePanel extends JPanel {
         rowData[6] = player.BLK();
         rowData[7] = player.TOV();
         return rowData;
+    }
+
+    public static JTable getTable() {
+        return table;
+    }
+
+    public static int getSelectedRow() {
+        return table.getSelectedRow();
     }
 }
